@@ -1,9 +1,9 @@
-package models
+package model
 
 import (
 	"math"
 
-	"local.packages/utils"
+	"local.packages/pkg"
 )
 
 // ScoreRecord スコアと同席回数を管理する型
@@ -34,7 +34,7 @@ func createTableFilledZero(len int) [][]int {
 
 // Record 同席回数とスコアを記録する
 func (sr *ScoreRecord) Record(participants []int, participantsInEachGroup int) {
-	groups := utils.SliceArr(participants, participantsInEachGroup)
+	groups := pkg.SliceArr(participants, participantsInEachGroup)
 	for _, group := range groups {
 		sr.recordEachGroup(group)
 	}

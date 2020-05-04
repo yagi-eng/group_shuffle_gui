@@ -1,21 +1,21 @@
-package handlers
+package api
 
 import (
 	"math"
 	"net/http"
 
-	"local.packages/models"
+	"local.packages/model"
 
 	"github.com/labstack/echo"
 )
 
 // CombinationsInfo 組み分けを生成するために必要な情報
 type CombinationsInfo struct {
-	// 参加者数
+	// 参加人数
 	AllParticipants int
 	// 1グループ毎の人数
 	ParticipantsInEachGroup int
-	// 組み分けの繰り返し回数
+	// グループ分けの回数
 	RepeatCnt int
 	// 組み分けの試行回数
 	Trials int
@@ -30,7 +30,7 @@ type SimulationResult struct {
 }
 
 // NewSimulationResult コンストラクタ
-func NewSimulationResult(pc *models.ParticipantCombinations, sr *models.ScoreRecord, sd float64, ci *CombinationsInfo) *SimulationResult {
+func NewSimulationResult(pc *model.ParticipantCombinations, sr *model.ScoreRecord, sd float64, ci *CombinationsInfo) *SimulationResult {
 
 	return &SimulationResult{
 		ParticipantCombinations: pc.DevideCombination(ci.ParticipantsInEachGroup),
@@ -52,11 +52,11 @@ func SimulateCombinations(c echo.Context) error {
 	}
 
 	betterSd := math.MaxFloat64
-	var betterPc *models.ParticipantCombinations
-	var betterSr *models.ScoreRecord
+	var betterPc *model.ParticipantCombinations
+	var betterSr *model.ScoreRecord
 	for i := 0; i < ci.Trials; i++ {
-		pc := models.NewParticipantCombinations(ci.AllParticipants, ci.RepeatCnt)
-		sr := models.NewScoreRecord(ci.AllParticipants)
+		pc := model.NewParticipantCombinations(ci.AllParticipants, ci.RepeatCnt)
+		sr := model.NewScoreRecord(ci.AllParticipants)
 
 		for _, combination := range pc.Combinations {
 			sr.Record(combination, ci.ParticipantsInEachGroup)

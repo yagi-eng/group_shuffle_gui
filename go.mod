@@ -10,11 +10,13 @@ require (
 	golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d // indirect
 	golang.org/x/net v0.0.0-20200425230154-ff2c4b7c35a0 // indirect
 	golang.org/x/text v0.3.2 // indirect
-	local.packages/handlers v0.0.0
-	local.packages/models v0.0.0 // indirect
-	local.packages/utils v0.0.0
+	local.packages/api v0.0.0
+	local.packages/model v0.0.0 // indirect
+	local.packages/pkg v0.0.0 // indirect
 )
 
-replace local.packages/handlers => ./handlers
-replace local.packages/models => ./models
-replace local.packages/utils => ./utils
+replace local.packages/api => ./api
+
+replace local.packages/model => ./model
+
+replace local.packages/pkg => ./pkg

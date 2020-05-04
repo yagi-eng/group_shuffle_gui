@@ -1,6 +1,6 @@
-package models
+package model
 
-import "local.packages/utils"
+import "local.packages/pkg"
 
 // ParticipantCombinations 参加者の組み合わせを管理する型
 type ParticipantCombinations struct {
@@ -17,7 +17,7 @@ func NewParticipantCombinations(allParticipants int, repeatCnt int) *Participant
 	}
 
 	for i := 0; i < repeatCnt; i++ {
-		utils.Shuffle(combination)
+		pkg.Shuffle(combination)
 		combinations[i] = make([]int, len(combination))
 		copy(combinations[i], combination)
 	}
@@ -29,7 +29,7 @@ func NewParticipantCombinations(allParticipants int, repeatCnt int) *Participant
 func (pc *ParticipantCombinations) DevideCombination(participantsInEachGroup int) [][][]int {
 	devideCombinations := [][][]int{}
 	for _, combination := range pc.Combinations {
-		devideCombinations = append(devideCombinations, utils.SliceArr(combination, participantsInEachGroup))
+		devideCombinations = append(devideCombinations, pkg.SliceArr(combination, participantsInEachGroup))
 	}
 	return devideCombinations
 }
