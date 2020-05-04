@@ -1,0 +1,9 @@
+h1 {
+    color: red;
+}
+
+.error {
+	color: #8a0421;
+	border-color: #dd0f3b;
+	background-color: #ffd9d9;
+}

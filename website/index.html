@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <title>ランダムでグループ分け！</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="static/css/style.css" rel="stylesheet">
+    <!-- /* Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.4/dist/validators.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.4/dist/vuelidate.min.js"></script>
+    <!-- Vue.js */ -->
+</head>
+
+<body class="margin-side">
+    <h1 class="container mt-2">ランダムでグループ分け☆</h1>
+
+    <div id="form" class="container mt-3">
+        <div class="row">
+            <div>
+                <form @submit.prevent="submitForm">
+                    <div class="form-group">
+                        <label for="allParticipants">参加人数</label>
+                        <input type="number" class="form-control" id="allParticipants" v-model="allParticipants"
+                            @blur="$v.allParticipants.$touch()"
+                            :class="{error:$v.allParticipants.$error, 'form-control':true}">
+                        <div v-if="$v.allParticipants.$error">
+                            <span v-if="!$v.allParticipants.required">入力されていません。</span>
+                            <span v-if="!$v.allParticipants.maxLength">4桁以上は入力できません。</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="participantsInEachGroup">1グループ毎の人数</label>
+                        <input type="number" class="form-control" id="participantsInEachGroup"
+                            v-model="participantsInEachGroup" @blur="$v.participantsInEachGroup.$touch()"
+                            :class="{error:$v.participantsInEachGroup.$error, 'form-control':true}">
+                        <div v-if="$v.participantsInEachGroup.$error">
+                            <span v-if="!$v.participantsInEachGroup.required">入力されていません。</span>
+                            <span v-if="!$v.participantsInEachGroup.maxLength">4桁以上は入力できません。</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="repeatCnt">グループ分けの回数</label>
+                        <input type="number" class="form-control" id="repeatCnt" v-model="repeatCnt"
+                            @blur="$v.repeatCnt.$touch()" :class="{error:$v.repeatCnt.$error, 'form-control':true}">
+                        <div v-if="$v.repeatCnt.$error">
+                            <span v-if="!$v.repeatCnt.required">入力されていません。</span>
+                            <span v-if="!$v.repeatCnt.maxLength">4桁以上は入力できません。</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="trials">試行回数</label>
+                        <input type="number" class="form-control" id="trials" v-model="trials"
+                            @blur="$v.trials.$touch()" :class="{error:$v.trials.$error, 'form-control':true}">
+                        <div v-if="$v.trials.$error">
+                            <span v-if="!$v.trials.required">入力されていません。</span>
+                            <span v-if="!$v.trials.maxLength">7桁以上は入力できません。</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info">送信</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="static/js/form.js"></script>
+</body>
+
+</html>
