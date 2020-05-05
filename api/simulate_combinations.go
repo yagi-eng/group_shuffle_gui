@@ -48,7 +48,7 @@ func SimulateCombinations(c echo.Context) error {
 	}
 
 	if ci.AllParticipants%ci.ParticipantsInEachGroup != 0 {
-		return c.JSON(http.StatusOK, map[string]string{"message": "このプログラムは参加人数がグループ数で割り切れない場合に対応していません。割り切れるように数を設定してください。"})
+		return c.JSON(http.StatusBadRequest, map[string]string{"message": "このプログラムは参加人数が1グループ毎の人数で割り切れない場合に対応していません。割り切れるように数を設定してください。"})
 	}
 
 	betterSd := math.MaxFloat64
@@ -62,7 +62,7 @@ func SimulateCombinations(c echo.Context) error {
 			sr.Record(combination, ci.ParticipantsInEachGroup)
 		}
 
-		// TODO: 標準偏差が0になる対策、標準偏差が近しい場合は、0が多い組み分けを採用など...
+		// TODO: 標準偏差が0になる対策、標準偏差が近しい場合は、0が少ない組み分けを採用など...
 		tmpSd := sr.CalcStandardDeviation()
 		if tmpSd < betterSd {
 			betterSd = tmpSd

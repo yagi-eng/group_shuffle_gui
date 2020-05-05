@@ -8,7 +8,7 @@ const form = new Vue({
     data: {
         // #form
         title: '入力フォームバリデーション',
-        allParticipants: '36',
+        allParticipants: '37',
         participantsInEachGroup: '6',
         repeatCnt: '3',
         trials: '1000',
@@ -47,17 +47,17 @@ const form = new Vue({
                     repeatCnt: this.repeatCnt,
                     trials: this.trials,
                 }
-            }).catch(error => {
-                return err.response
+            }).catch(err => {
+                return err.response;
             });
+
+            if(res.status != 200) {
+                alert(res.data.message);
+                return false;
+            }
 
             console.log(res.data);
             this.simulationResult = res.data;
-
-            if (res.status != 200) {
-                console.log(res.status);
-                alert("入力値が正しくありません。");
-            }
         }
     }
 });
