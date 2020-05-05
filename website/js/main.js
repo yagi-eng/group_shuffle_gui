@@ -4,7 +4,7 @@ Vue.use(window.vuelidate.default);
 const { required, numeric, maxLength } = window.validators;
 
 const form = new Vue({
-    el: '#body',
+    el: 'main',
     data: {
         // #form
         title: '入力フォームバリデーション',
