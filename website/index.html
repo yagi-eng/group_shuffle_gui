@@ -2,7 +2,7 @@
 <html lang="ja">
 
 <head>
-    <title>ランダムでグループ分け☆</title>
+    <title>ランダムにグループ分け☆</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="static/css/style.css" rel="stylesheet">
@@ -14,55 +14,66 @@
 </head>
 
 <body class="margin-side">
-    <h1 class="container mt-3">ランダムでグループ分け☆</h1>
-    <main>
-        <div id="form" class="container mt-3">
-            <div class="row">
-                <form @submit.prevent="submitForm">
-                    <div class="form-group">
-                        <label for="allParticipants">参加人数</label>
-                        <input type="number" class="form-control" id="allParticipants" v-model="allParticipants"
-                            @blur="$v.allParticipants.$touch()"
-                            :class="{error:$v.allParticipants.$error, 'form-control':true}">
-                        <div v-if="$v.allParticipants.$error">
-                            <span v-if="!$v.allParticipants.required">入力されていません。</span>
-                            <span v-if="!$v.allParticipants.maxLength">4桁以上は入力できません。</span>
+    <h1 class="container mt-3">ランダムにグループ分け☆</h1>
+    <p class="container">交流会などで複数回グループ分けを行う際に、なるべく重複がないようにランダムにグループ分けをします。</p>
+    <main class="container mt-3">
+        <div id="form">
+            <form class="w-25" @submit.prevent="submitForm">
+                <div class="form-group">
+                    <label for="allParticipants">参加人数</label>
+                    <input type="number" class="form-control" id="allParticipants" v-model="allParticipants"
+                        @blur="$v.allParticipants.$touch()"
+                        :class="{error:$v.allParticipants.$error, 'form-control':true}">
+                    <div v-if="$v.allParticipants.$error">
+                        <span class="text-danger" v-if="!$v.allParticipants.required">入力されていません。</span>
+                        <span class="text-danger" v-if="!$v.allParticipants.maxLength">4桁以上は入力できません。</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="participantsInEachGroup">1グループ毎の人数</label>
+                    <input type="number" class="form-control" id="participantsInEachGroup"
+                        v-model="participantsInEachGroup" @blur="$v.participantsInEachGroup.$touch()"
+                        :class="{error:$v.participantsInEachGroup.$error, 'form-control':true}">
+                    <div v-if="$v.participantsInEachGroup.$error">
+                        <span class="text-danger" v-if="!$v.participantsInEachGroup.required">入力されていません。</span>
+                        <span class="text-danger" v-if="!$v.participantsInEachGroup.maxLength">4桁以上は入力できません。</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="repeatCnt">グループ分けの回数</label>
+                    <input type="number" class="form-control" id="repeatCnt" v-model="repeatCnt"
+                        @blur="$v.repeatCnt.$touch()" :class="{error:$v.repeatCnt.$error, 'form-control':true}">
+                    <div v-if="$v.repeatCnt.$error">
+                        <span class="text-danger" v-if="!$v.repeatCnt.required">入力されていません。</span>
+                        <span class="text-danger" v-if="!$v.repeatCnt.maxLength">4桁以上は入力できません。</span>
+                    </div>
+                </div>
+                <div>
+                    <p><button type="button" class="btn btn-primary rounded-circle p-0" data-toggle="collapse"
+                            data-target="#detail-setting" aria-expanded="false" aria-controls="detail-setting"
+                            style="width:2rem;height:2rem;">
+                            ＋
+                        </button> 詳細設定</p>
+                    <div class="collapse" id="detail-setting">
+                        <div class="form-group">
+                            <label for="trials">試行回数</label>
+                            <input type="number" class="form-control" id="trials" v-model="trials"
+                                @blur="$v.trials.$touch()" :class="{error:$v.trials.$error, 'form-control':true}">
+                            <div>
+                                <span>試行回数分だけランダムにグループ分けを作成し、一番重複が少ないグループ分けを結果に表示します。</span>
+                            </div>
+                            <div v-if="$v.trials.$error">
+                                <span class="text-danger" v-if="!$v.trials.required">入力されていません。</span>
+                                <span class="text-danger" v-if="!$v.trials.maxLength">7桁以上は入力できません。</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="participantsInEachGroup">1グループ毎の人数</label>
-                        <input type="number" class="form-control" id="participantsInEachGroup"
-                            v-model="participantsInEachGroup" @blur="$v.participantsInEachGroup.$touch()"
-                            :class="{error:$v.participantsInEachGroup.$error, 'form-control':true}">
-                        <div v-if="$v.participantsInEachGroup.$error">
-                            <span v-if="!$v.participantsInEachGroup.required">入力されていません。</span>
-                            <span v-if="!$v.participantsInEachGroup.maxLength">4桁以上は入力できません。</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="repeatCnt">グループ分けの回数</label>
-                        <input type="number" class="form-control" id="repeatCnt" v-model="repeatCnt"
-                            @blur="$v.repeatCnt.$touch()" :class="{error:$v.repeatCnt.$error, 'form-control':true}">
-                        <div v-if="$v.repeatCnt.$error">
-                            <span v-if="!$v.repeatCnt.required">入力されていません。</span>
-                            <span v-if="!$v.repeatCnt.maxLength">4桁以上は入力できません。</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="trials">試行回数</label>
-                        <input type="number" class="form-control" id="trials" v-model="trials"
-                            @blur="$v.trials.$touch()" :class="{error:$v.trials.$error, 'form-control':true}">
-                        <div v-if="$v.trials.$error">
-                            <span v-if="!$v.trials.required">入力されていません。</span>
-                            <span v-if="!$v.trials.maxLength">7桁以上は入力できません。</span>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-info">送信</button>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">送信</button>
+            </form>
         </div>
 
-        <div id="table" class="container mt-4">
+        <div id="table" class="container mt-5">
             <h2 class="container">グループ分け結果</h2>
             <div v-for="(combination, index) in simulationResult.participantCombinations" class="mt-2">
                 <span class="lead">{{ index + 1 }}回目</span>
@@ -78,6 +89,17 @@
         </div>
     </main>
 
+    <!-- /* bootstrap4 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <!-- bootstrap4 */ -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="static/js/main.js"></script>
 </body>
