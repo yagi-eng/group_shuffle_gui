@@ -45,7 +45,7 @@
                         @blur="$v.repeatCnt.$touch()" :class="{error:$v.repeatCnt.$error, 'form-control':true}">
                     <div v-if="$v.repeatCnt.$error">
                         <span class="text-danger" v-if="!$v.repeatCnt.required">入力されていません。</span>
-                        <span class="text-danger" v-if="!$v.repeatCnt.maxLength">4桁以上は入力できません。</span>
+                        <span class="text-danger" v-if="!$v.repeatCnt.maxLength">3桁以上は入力できません。</span>
                     </div>
                 </div>
                 <div>
@@ -69,11 +69,11 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">送信</button>
+                <button type="submit" class="btn btn-primary mt-3">グループ分け</button>
             </form>
         </div>
 
-        <div id="table" class="container mt-5">
+        <div id="result" class="container mt-5">
             <h2 class="container">グループ分け結果</h2>
             <div v-for="(combination, index) in simulationResult.participantCombinations" class="mt-2">
                 <span class="lead">{{ index + 1 }}回目</span>

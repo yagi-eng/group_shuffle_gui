@@ -8,11 +8,11 @@ const form = new Vue({
     data: {
         // #form
         title: '入力フォームバリデーション',
-        allParticipants: '37',
+        allParticipants: '36',
         participantsInEachGroup: '6',
         repeatCnt: '3',
         trials: '1000',
-        // #table
+        // #result
         simulationResult: {},
     },
     validations: {
@@ -26,7 +26,7 @@ const form = new Vue({
         },
         repeatCnt: {
             required,
-            maxLength: maxLength(3)
+            maxLength: maxLength(2)
         },
         trials: {
             required,
