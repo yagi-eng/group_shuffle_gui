@@ -4,13 +4,16 @@ Vue.use(window.vuelidate.default);
 const { required, numeric, maxLength } = window.validators;
 
 const form = new Vue({
-    el: '#form',
+    el: '#body',
     data: {
+        // #form
         title: '入力フォームバリデーション',
         allParticipants: '36',
         participantsInEachGroup: '6',
         repeatCnt: '3',
         trials: '1000',
+        // #table
+        simulationResult: {},
     },
     validations: {
         allParticipants: {
@@ -49,6 +52,7 @@ const form = new Vue({
             });
 
             console.log(res.data);
+            this.simulationResult = res.data;
 
             if (res.status != 200) {
                 console.log(res.status);
