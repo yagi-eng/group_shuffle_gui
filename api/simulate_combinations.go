@@ -33,13 +33,8 @@ type SimulationResult struct {
 
 // NewSimulationResult コンストラクタ
 func NewSimulationResult(pc *model.ParticipantCombinations, sr *model.ScoreRecord, sd float64, ci *CombinationsInfo) *SimulationResult {
-	pc.CreateCombinationsStr()
-	if ci.Names != "" {
-		pc.ReplaceNumWithName(ci.Names)
-	}
-
 	return &SimulationResult{
-		ParticipantCombinations: pc.DevideCombination(ci.ParticipantsInEachGroup),
+		ParticipantCombinations: pc.CreateCombinationsForFront(ci.Names, ci.ParticipantsInEachGroup),
 		CountTable:              sr.CountTable,
 		CountTableOfElmNum:      sr.CountNum(ci.RepeatCnt),
 		StandardDeviation:       math.Round(sd*100) / 100,
@@ -69,9 +64,9 @@ func SimulateCombinations(c echo.Context) error {
 		}
 
 		// TODO: 標準偏差が0になる対策、標準偏差が近しい場合は、0が少ない組み分けを採用など...
-		tmpSd := sr.CalcStandardDeviation()
-		if tmpSd < betterSd {
-			betterSd = tmpSd
+		sd := sr.CalcStandardDeviation()
+		if sd < betterSd {
+			betterSd = sd
 			betterPc, betterSr = pc, sr
 		}
 	}

@@ -6,21 +6,19 @@ import (
 	array "local.packages/pkg/util/array"
 )
 
-// ParticipantCombinations 参加者の組み合わせを管理する型
+// ParticipantCombinations グループ分けを管理する型
 type ParticipantCombinations struct {
-	Combinations    [][]int
-	CombinationsStr [][]string
+	Combinations [][]int
 }
 
 // NewParticipantCombinations コンストラクタ
 func NewParticipantCombinations(allParticipants int, repeatCnt int) *ParticipantCombinations {
-	combinations := make([][]int, repeatCnt)
-
-	combination := make([]int, allParticipants)
-	for i := range combination {
-		combination[i] = i
+	combination := []int{}
+	for i := 0; i < allParticipants; i++ {
+		combination = append(combination, i)
 	}
 
+	combinations := make([][]int, repeatCnt)
 	for i := 0; i < repeatCnt; i++ {
 		array.Shuffle(combination)
 		combinations[i] = make([]int, len(combination))
@@ -30,25 +28,37 @@ func NewParticipantCombinations(allParticipants int, repeatCnt int) *Participant
 	return &ParticipantCombinations{Combinations: combinations}
 }
 
-// CreateCombinationsStr string型のCombinationsを作成する
-func (pc *ParticipantCombinations) CreateCombinationsStr() {
-	pc.CombinationsStr = array.Itoa(pc.Combinations)
-}
-
-// ReplaceNumWithName 数字を人の名前に置換する
-func (pc *ParticipantCombinations) ReplaceNumWithName(names string) {
-	namesArr := strings.Split(names, ",")
-	for i, combination := range pc.Combinations {
-		for j, elm := range combination {
-			pc.CombinationsStr[i][j] = namesArr[elm]
-		}
+// CreateCombinationsForFront フロント表示用に文字列（数字or名前）に変換する
+func (pc *ParticipantCombinations) CreateCombinationsForFront(names string, participantsInEachGroup int) [][][]string {
+	combinationsStr := [][]string{}
+	if names == "" {
+		combinationsStr = array.Itoa(pc.Combinations)
+	} else {
+		combinationsStr = pc.replaceNumWithName(names)
 	}
+	return pc.devideCombination(combinationsStr, participantsInEachGroup)
 }
 
-// DevideCombination シミュレーション結果表示用に各組み合わせをグループ毎に分割する
-func (pc *ParticipantCombinations) DevideCombination(participantsInEachGroup int) [][][]string {
+// replaceNumWithName 数字を人の名前に置換する
+func (pc *ParticipantCombinations) replaceNumWithName(names string) [][]string {
+	namesArr := strings.Split(names, ",")
+	combinationsStr := [][]string{}
+
+	for _, combination := range pc.Combinations {
+		combinationStr := []string{}
+		for _, val := range combination {
+			combinationStr = append(combinationStr, namesArr[val])
+		}
+		combinationsStr = append(combinationsStr, combinationStr)
+	}
+
+	return combinationsStr
+}
+
+// devideCombination シミュレーション結果表示用に各組み合わせをグループ毎に分割する
+func (pc *ParticipantCombinations) devideCombination(combinationsStr [][]string, participantsInEachGroup int) [][][]string {
 	devideCombinations := [][][]string{}
-	for _, combination := range pc.CombinationsStr {
+	for _, combination := range combinationsStr {
 		devideCombinations = append(devideCombinations, array.SliceArrStr(combination, participantsInEachGroup))
 	}
 	return devideCombinations
