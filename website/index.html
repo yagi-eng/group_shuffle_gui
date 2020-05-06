@@ -17,11 +17,11 @@
     <h1 class="container mt-3">ランダムにグループ分け☆</h1>
     <p class="container">交流会などで複数回グループ分けを行う際に、なるべく重複がないようにランダムにグループ分けをします。</p>
     <main class="container mt-3">
-        <div id="form">
-            <form class="w-25" @submit.prevent="submitForm">
+        <div id="inputForm">
+            <form @submit.prevent="submitForm">
                 <div class="form-group">
                     <label for="allParticipants">参加人数</label>
-                    <input type="number" class="form-control" id="allParticipants" v-model="allParticipants"
+                    <input type="number" class="form-control w-25" id="allParticipants" v-model="allParticipants"
                         @blur="$v.allParticipants.$touch()"
                         :class="{error:$v.allParticipants.$error, 'form-control':true}">
                     <div v-if="$v.allParticipants.$error">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label for="participantsInEachGroup">1グループ毎の人数</label>
-                    <input type="number" class="form-control" id="participantsInEachGroup"
+                    <input type="number" class="form-control w-25" id="participantsInEachGroup"
                         v-model="participantsInEachGroup" @blur="$v.participantsInEachGroup.$touch()"
                         :class="{error:$v.participantsInEachGroup.$error, 'form-control':true}">
                     <div v-if="$v.participantsInEachGroup.$error">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label for="repeatCnt">グループ分けの回数</label>
-                    <input type="number" class="form-control" id="repeatCnt" v-model="repeatCnt"
+                    <input type="number" class="form-control w-25" id="repeatCnt" v-model="repeatCnt"
                         @blur="$v.repeatCnt.$touch()" :class="{error:$v.repeatCnt.$error, 'form-control':true}">
                     <div v-if="$v.repeatCnt.$error">
                         <span class="text-danger" v-if="!$v.repeatCnt.required">入力されていません。</span>
@@ -49,20 +49,33 @@
                     </div>
                 </div>
                 <div>
-                    <p><button type="button" class="btn btn-primary rounded-circle p-0" data-toggle="collapse"
-                            data-target="#detail-setting" aria-expanded="false" aria-controls="detail-setting"
-                            style="width:2rem;height:2rem;">
+                    <p><button type="button" class="btn btn-primary rounded-circle p-0" id="detail-setting-btn"
+                            data-toggle="collapse" data-target="#detail-setting" aria-expanded="false"
+                            aria-controls="detail-setting" style="width:2rem;height:2rem;">
                             ＋
-                        </button> 詳細設定</p>
+                        </button> <label for="detail-setting-btn">詳細設定</label></p>
                     <div class="collapse" id="detail-setting">
                         <div class="form-group">
                             <label for="trials">試行回数</label>
-                            <input type="number" class="form-control" id="trials" v-model="trials"
+                            <input type="number" class="form-control w-25" id="trials" v-model="trials"
                                 @blur="$v.trials.$touch()" :class="{error:$v.trials.$error, 'form-control':true}">
                             <div>
-                                <span>試行回数分だけランダムにグループ分けを作成し、一番重複が少ないグループ分けを結果に表示します。</span>
+                                <span>試行回数分だけランダムにグループ分けを作成し、一番重複が少ないグループ分けを結果に表示します。</span><br>
+                                <span>試行回数分が多いほどより重複が少ないグループ分け結果を得られる分時間がかかります。</span>
                             </div>
                             <div v-if="$v.trials.$error">
+                                <span class="text-danger" v-if="!$v.trials.required">入力されていません。</span>
+                                <span class="text-danger" v-if="!$v.trials.maxLength">7桁以上は入力できません。</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="names">参加者の名前（任意）</label>
+                            <textarea class="form-control" id="names" v-model="names" @blur="$v.names.$touch()"
+                                :class="{error:$v.names.$error, 'form-control':true}"></textarea>
+                            <div>
+                                <span>参加者の名前を","（カンマ）区切りで参加人数分入力してください。</span>
+                            </div>
+                            <div v-if="$v.names.$error">
                                 <span class="text-danger" v-if="!$v.trials.required">入力されていません。</span>
                                 <span class="text-danger" v-if="!$v.trials.maxLength">7桁以上は入力できません。</span>
                             </div>
@@ -73,16 +86,14 @@
             </form>
         </div>
 
-        <div id="result" class="container mt-5">
-            <h2 class="container">グループ分け結果</h2>
+        <div id="result" class="mt-5">
+            <h2>グループ分け結果</h2>
             <div v-for="(combination, index) in simulationResult.participantCombinations" class="mt-2">
                 <span class="lead">{{ index + 1 }}回目</span>
                 <table class="table table-bordered mt-1">
                     <tr v-for="(group, index) in combination">
                         <td class="w-25">グループ{{ index + 1 }}</td>
-                        <td v-for="val in group">
-                            {{ val + 1 }}
-                        </td>
+                        <td v-for="val in group">{{ val }}</td>
                     </tr>
                 </table>
             </div>

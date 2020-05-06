@@ -1,10 +1,15 @@
 package model
 
-import "local.packages/pkg"
+import (
+	"strings"
+
+	"local.packages/pkg"
+)
 
 // ParticipantCombinations 参加者の組み合わせを管理する型
 type ParticipantCombinations struct {
-	Combinations [][]int
+	Combinations    [][]int
+	CombinationsStr [][]string
 }
 
 // NewParticipantCombinations コンストラクタ
@@ -25,11 +30,26 @@ func NewParticipantCombinations(allParticipants int, repeatCnt int) *Participant
 	return &ParticipantCombinations{Combinations: combinations}
 }
 
+// CreateCombinationsStr string型のCombinationsを作成する
+func (pc *ParticipantCombinations) CreateCombinationsStr() {
+	pc.CombinationsStr = pkg.Itoa(pc.Combinations)
+}
+
+// ReplaceNumWithName 数字を人の名前に置換する
+func (pc *ParticipantCombinations) ReplaceNumWithName(names string) {
+	namesArr := strings.Split(names, ",")
+	for i, combination := range pc.Combinations {
+		for j, elm := range combination {
+			pc.CombinationsStr[i][j] = namesArr[elm]
+		}
+	}
+}
+
 // DevideCombination シミュレーション結果表示用に各組み合わせをグループ毎に分割する
-func (pc *ParticipantCombinations) DevideCombination(participantsInEachGroup int) [][][]int {
-	devideCombinations := [][][]int{}
-	for _, combination := range pc.Combinations {
-		devideCombinations = append(devideCombinations, pkg.SliceArr(combination, participantsInEachGroup))
+func (pc *ParticipantCombinations) DevideCombination(participantsInEachGroup int) [][][]string {
+	devideCombinations := [][][]string{}
+	for _, combination := range pc.CombinationsStr {
+		devideCombinations = append(devideCombinations, pkg.SliceArrStr(combination, participantsInEachGroup))
 	}
 	return devideCombinations
 }

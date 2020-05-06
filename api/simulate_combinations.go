@@ -19,18 +19,24 @@ type CombinationsInfo struct {
 	RepeatCnt int
 	// 組み分けの試行回数
 	Trials int
+	// 参加者名（","区切り）
+	Names string
 }
 
 // SimulationResult 生成結果
 type SimulationResult struct {
-	ParticipantCombinations [][][]int `json:"participantCombinations"`
-	CountTable              [][]int   `json:"countTable"`
-	CountTableOfElmNum      []int     `json:"countTableOfElmNum"`
-	StandardDeviation       float64   `json:"standardDeviation"`
+	ParticipantCombinations [][][]string `json:"participantCombinations"`
+	CountTable              [][]int      `json:"countTable"`
+	CountTableOfElmNum      []int        `json:"countTableOfElmNum"`
+	StandardDeviation       float64      `json:"standardDeviation"`
 }
 
 // NewSimulationResult コンストラクタ
 func NewSimulationResult(pc *model.ParticipantCombinations, sr *model.ScoreRecord, sd float64, ci *CombinationsInfo) *SimulationResult {
+	pc.CreateCombinationsStr()
+	if ci.Names != "" {
+		pc.ReplaceNumWithName(ci.Names)
+	}
 
 	return &SimulationResult{
 		ParticipantCombinations: pc.DevideCombination(ci.ParticipantsInEachGroup),
