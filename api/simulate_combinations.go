@@ -64,7 +64,7 @@ func SimulateCombinations(c echo.Context) error {
 		}
 
 		// TODO: 標準偏差が0になる対策、標準偏差が近しい場合は、0が少ない組み分けを採用など...
-		sd := sr.CalcStandardDeviation()
+		sd := sr.CalcScoresStandardDeviation()
 		if sd < betterSd {
 			betterSd = sd
 			betterPc, betterSr = pc, sr

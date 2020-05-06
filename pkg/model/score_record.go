@@ -1,8 +1,6 @@
 package model
 
 import (
-	"math"
-
 	array "local.packages/pkg/util/array"
 )
 
@@ -19,17 +17,8 @@ type ScoreRecord struct {
 // NewScoreRecord コンストラクタ
 func NewScoreRecord(len int) *ScoreRecord {
 	scores := make([]int, len)
-	countTable := createTableFilledZero(len)
+	countTable := array.CreateTableFilledZero(len)
 	return &ScoreRecord{Scores: scores, CountTable: countTable}
-}
-
-// 全ての要素が0のテーブルを生成する
-func createTableFilledZero(len int) [][]int {
-	table := make([][]int, len)
-	for i := 0; i < len; i++ {
-		table[i] = make([]int, len)
-	}
-	return table
 }
 
 // Record 同席回数とスコアを記録する
@@ -57,20 +46,9 @@ func (sr *ScoreRecord) recordEachGroup(group []int) {
 	}
 }
 
-// CalcStandardDeviation スコアの標準偏差を計算する
-func (sr *ScoreRecord) CalcStandardDeviation() float64 {
-	sum := 0
-	for _, score := range sr.Scores {
-		sum += score
-	}
-	len := len(sr.Scores)
-	ave := float64(sum) / float64(len)
-
-	numerator := 0.0
-	for _, v := range sr.Scores {
-		numerator += math.Pow(float64(v)-ave, 2)
-	}
-	return math.Sqrt(numerator / float64(len))
+// CalcScoresStandardDeviation スコアの標準偏差を計算する
+func (sr *ScoreRecord) CalcScoresStandardDeviation() float64 {
+	return array.CalcStandardDeviation(sr.Scores)
 }
 
 // CountNum 同席回数を集計する
