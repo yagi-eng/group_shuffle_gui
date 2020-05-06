@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:1323/api/v1/simulateCombinations'
+const baseUrl = location.href;
 
 Vue.use(window.vuelidate.default);
 const { required, numeric, maxLength } = window.validators;
@@ -55,7 +55,7 @@ const main = new Vue({
                 return false;
             }
 
-            const res = await axios.get(baseUrl, {
+            const res = await axios.get(baseUrl + "api/v1/simulateCombinations", {
                 params: {
                     allParticipants: this.allParticipants,
                     participantsInEachGroup: this.participantsInEachGroup,
