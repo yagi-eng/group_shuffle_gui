@@ -12,11 +12,11 @@ require (
 	golang.org/x/text v0.3.2 // indirect
 	local.packages/api v0.0.0
 	local.packages/pkg/model v0.0.0 // indirect
-	local.packages/pkg/util/array v0.0.0 // indirect
+	local.packages/pkg/util/slice v0.0.0 // indirect
 )
 
 replace local.packages/api => ./api
 
 replace local.packages/pkg/model => ./pkg/model
 
-replace local.packages/pkg/util/array => ./pkg/util/array
+replace local.packages/pkg/util/slice => ./pkg/util/slice

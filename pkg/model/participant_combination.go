@@ -3,7 +3,7 @@ package model
 import (
 	"strings"
 
-	array "local.packages/pkg/util/array"
+	slice "local.packages/pkg/util/slice"
 )
 
 // ParticipantCombinations グループ分けを管理する型
@@ -20,7 +20,7 @@ func NewParticipantCombinations(allParticipants int, repeatCnt int) *Participant
 
 	combinations := make([][]int, repeatCnt)
 	for i := 0; i < repeatCnt; i++ {
-		array.Shuffle(combination)
+		slice.Shuffle(combination)
 		combinations[i] = make([]int, len(combination))
 		copy(combinations[i], combination)
 	}
@@ -32,7 +32,7 @@ func NewParticipantCombinations(allParticipants int, repeatCnt int) *Participant
 func (pc *ParticipantCombinations) CreateCombinationsForFront(names string, participantsInEachGroup int) [][][]string {
 	combinationsStr := [][]string{}
 	if names == "" {
-		combinationsStr = array.Itoa(pc.Combinations)
+		combinationsStr = slice.Itoa(pc.Combinations)
 	} else {
 		combinationsStr = pc.replaceNumWithName(names)
 	}
@@ -59,7 +59,7 @@ func (pc *ParticipantCombinations) replaceNumWithName(names string) [][]string {
 func (pc *ParticipantCombinations) devideCombination(combinationsStr [][]string, participantsInEachGroup int) [][][]string {
 	devideCombinations := [][][]string{}
 	for _, combination := range combinationsStr {
-		devideCombinations = append(devideCombinations, array.SliceArrStr(combination, participantsInEachGroup))
+		devideCombinations = append(devideCombinations, slice.SliceArrStr(combination, participantsInEachGroup))
 	}
 	return devideCombinations
 }

@@ -1,7 +1,7 @@
 package model
 
 import (
-	array "local.packages/pkg/util/array"
+	slice "local.packages/pkg/util/slice"
 )
 
 // ScoreRecord スコアと同席回数を管理する型
@@ -17,13 +17,13 @@ type ScoreRecord struct {
 // NewScoreRecord コンストラクタ
 func NewScoreRecord(len int) *ScoreRecord {
 	scores := make([]int, len)
-	countTable := array.CreateTableFilledZero(len)
+	countTable := slice.CreateTableFilledZero(len)
 	return &ScoreRecord{Scores: scores, CountTable: countTable}
 }
 
 // Record 同席回数とスコアを記録する
 func (sr *ScoreRecord) Record(participants []int, participantsInEachGroup int) {
-	groups := array.SliceArr(participants, participantsInEachGroup)
+	groups := slice.SliceArr(participants, participantsInEachGroup)
 	for _, group := range groups {
 		sr.recordEachGroup(group)
 	}
@@ -48,7 +48,7 @@ func (sr *ScoreRecord) recordEachGroup(group []int) {
 
 // CalcScoresStandardDeviation スコアの標準偏差を計算する
 func (sr *ScoreRecord) CalcScoresStandardDeviation() float64 {
-	return array.CalcStandardDeviation(sr.Scores)
+	return slice.CalcStandardDeviation(sr.Scores)
 }
 
 // CountNum 同席回数を集計する
