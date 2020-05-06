@@ -11,12 +11,12 @@ require (
 	golang.org/x/net v0.0.0-20200425230154-ff2c4b7c35a0 // indirect
 	golang.org/x/text v0.3.2 // indirect
 	local.packages/api v0.0.0
-	local.packages/model v0.0.0 // indirect
-	local.packages/pkg v0.0.0 // indirect
+	local.packages/pkg/model v0.0.0 // indirect
+	local.packages/pkg/util/array v0.0.0 // indirect
 )
 
 replace local.packages/api => ./api
 
-replace local.packages/model => ./model
+replace local.packages/pkg/model => ./pkg/model
 
-replace local.packages/pkg => ./pkg
+replace local.packages/pkg/util/array => ./pkg/util/array

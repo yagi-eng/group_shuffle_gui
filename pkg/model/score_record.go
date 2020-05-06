@@ -3,7 +3,7 @@ package model
 import (
 	"math"
 
-	"local.packages/pkg"
+	array "local.packages/pkg/util/array"
 )
 
 // ScoreRecord スコアと同席回数を管理する型
@@ -34,7 +34,7 @@ func createTableFilledZero(len int) [][]int {
 
 // Record 同席回数とスコアを記録する
 func (sr *ScoreRecord) Record(participants []int, participantsInEachGroup int) {
-	groups := pkg.SliceArr(participants, participantsInEachGroup)
+	groups := array.SliceArr(participants, participantsInEachGroup)
 	for _, group := range groups {
 		sr.recordEachGroup(group)
 	}

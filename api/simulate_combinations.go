@@ -4,7 +4,7 @@ import (
 	"math"
 	"net/http"
 
-	"local.packages/model"
+	model "local.packages/pkg/model"
 
 	"github.com/labstack/echo"
 )

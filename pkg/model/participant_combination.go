@@ -3,7 +3,7 @@ package model
 import (
 	"strings"
 
-	"local.packages/pkg"
+	array "local.packages/pkg/util/array"
 )
 
 // ParticipantCombinations 参加者の組み合わせを管理する型
@@ -22,7 +22,7 @@ func NewParticipantCombinations(allParticipants int, repeatCnt int) *Participant
 	}
 
 	for i := 0; i < repeatCnt; i++ {
-		pkg.Shuffle(combination)
+		array.Shuffle(combination)
 		combinations[i] = make([]int, len(combination))
 		copy(combinations[i], combination)
 	}
@@ -32,7 +32,7 @@ func NewParticipantCombinations(allParticipants int, repeatCnt int) *Participant
 
 // CreateCombinationsStr string型のCombinationsを作成する
 func (pc *ParticipantCombinations) CreateCombinationsStr() {
-	pc.CombinationsStr = pkg.Itoa(pc.Combinations)
+	pc.CombinationsStr = array.Itoa(pc.Combinations)
 }
 
 // ReplaceNumWithName 数字を人の名前に置換する
@@ -49,7 +49,7 @@ func (pc *ParticipantCombinations) ReplaceNumWithName(names string) {
 func (pc *ParticipantCombinations) DevideCombination(participantsInEachGroup int) [][][]string {
 	devideCombinations := [][][]string{}
 	for _, combination := range pc.CombinationsStr {
-		devideCombinations = append(devideCombinations, pkg.SliceArrStr(combination, participantsInEachGroup))
+		devideCombinations = append(devideCombinations, array.SliceArrStr(combination, participantsInEachGroup))
 	}
 	return devideCombinations
 }
