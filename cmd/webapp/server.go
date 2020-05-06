@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"local.packages/api"
 
 	"github.com/labstack/echo"
@@ -10,7 +12,7 @@ func main() {
 	e := echo.New()
 	e.Static("/static", "website")
 	initRouting(e)
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
 
 func initRouting(e *echo.Echo) {
