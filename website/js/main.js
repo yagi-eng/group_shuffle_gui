@@ -1,4 +1,4 @@
-const baseUrl = location.href;
+const baseUrl = "/";
 
 Vue.use(window.vuelidate.default);
 const { required, numeric, maxLength } = window.validators;
