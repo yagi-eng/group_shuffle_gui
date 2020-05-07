@@ -23,7 +23,7 @@ func NewScoreRecord(len int) *ScoreRecord {
 
 // Record 同席回数とスコアを記録する
 func (sr *ScoreRecord) Record(participants []int, participantsInEachGroup int) {
-	groups := slice.SliceArr(participants, participantsInEachGroup)
+	groups := slice.DevideArr(participants, participantsInEachGroup)
 	for _, group := range groups {
 		sr.recordEachGroup(group)
 	}

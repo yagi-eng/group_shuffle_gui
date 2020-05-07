@@ -51,8 +51,8 @@ func Shuffle(arr []int) {
 	}
 }
 
-// SliceArr スライスを分割する
-func SliceArr(arr []int, lenOfEachSlice int) [][]int {
+// DevideArr スライスを分割する
+func DevideArr(arr []int, lenOfEachSlice int) [][]int {
 	arrs := [][]int{}
 	len := len(arr)
 
@@ -67,8 +67,8 @@ func SliceArr(arr []int, lenOfEachSlice int) [][]int {
 	return arrs
 }
 
-// SliceArrStr スライスを分割する
-func SliceArrStr(arr []string, lenOfEachSlice int) [][]string {
+// DevideArrStr スライスを分割する
+func DevideArrStr(arr []string, lenOfEachSlice int) [][]string {
 	arrs := [][]string{}
 	len := len(arr)
 

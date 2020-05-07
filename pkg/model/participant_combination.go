@@ -59,7 +59,7 @@ func (pc *ParticipantCombinations) replaceNumWithName(names string) [][]string {
 func (pc *ParticipantCombinations) devideCombination(combinationsStr [][]string, participantsInEachGroup int) [][][]string {
 	devideCombinations := [][][]string{}
 	for _, combination := range combinationsStr {
-		devideCombinations = append(devideCombinations, slice.SliceArrStr(combination, participantsInEachGroup))
+		devideCombinations = append(devideCombinations, slice.DevideArrStr(combination, participantsInEachGroup))
 	}
 	return devideCombinations
 }
