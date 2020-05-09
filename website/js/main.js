@@ -21,8 +21,8 @@ const main = new Vue({
         allParticipants: '18',
         participantsInEachGroup: '6',
         repeatCnt: '3',
-        trials: '1000',
-        names: '田中,山田,佐藤,斎藤,近藤,伊藤,高橋,織田,豊臣,徳永,不破,貴島,深田,滝川,弘中,玉城,小倉,尾崎',
+        trials: '20000',
+        names: '安倍,野田,菅,鳩山,麻生,福田,小泉,森,小渕,橋本,村山,羽田,細川,宮澤,海部,宇野,竹下,中曽根',
         // #result
         simulationResult: {},
     },
