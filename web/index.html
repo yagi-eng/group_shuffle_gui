@@ -2,7 +2,7 @@
 <html lang="ja">
 
 <head>
-    <title>ランダムにグループ分け☆</title>
+    <title>ランダムにグループ分け</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="static/css/style.css" rel="stylesheet">
@@ -14,7 +14,7 @@
 </head>
 
 <body class="margin-side">
-    <h1 class="container mt-3">ランダムにグループ分け☆</h1>
+    <h1 class="container mt-3">ランダムにグループ分け</h1>
     <p class="container">交流会などで複数回グループ分けを行う際に、なるべく重複がないようにランダムにグループ分けをします。</p>
     <main class="container mt-3">
         <div id="inputForm">
@@ -73,11 +73,7 @@
                             <textarea class="form-control" id="names" v-model="names" @blur="$v.names.$touch()"
                                 :class="{error:$v.names.$error, 'form-control':true}"></textarea>
                             <div>
-                                <span>参加者の名前を","（カンマ）区切りで参加人数分入力してください。</span>
-                            </div>
-                            <div v-if="$v.names.$error">
-                                <span class="text-danger" v-if="!$v.trials.required">入力されていません。</span>
-                                <span class="text-danger" v-if="!$v.trials.maxLength">7桁以上は入力できません。</span>
+                                <span :class="{'text-danger':$v.names.$error}">参加者の名前を","（カンマ）区切りで参加人数分入力してください。</span>
                             </div>
                         </div>
                     </div>
