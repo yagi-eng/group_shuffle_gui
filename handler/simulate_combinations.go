@@ -1,12 +1,11 @@
-package api
+package handler
 
 import (
 	"math"
 	"net/http"
 
-	model "local.packages/pkg/model"
-
 	"github.com/labstack/echo"
+	"github.com/yagi_eng/group_shuffle_gui/model"
 )
 
 // CombinationsInfo 組み分けを生成するために必要な情報

@@ -3,7 +3,7 @@ package model
 import (
 	"strings"
 
-	slice "local.packages/pkg/util/slice"
+	"github.com/yagi_eng/group_shuffle_gui/util/slice"
 )
 
 // ParticipantCombinations グループ分けを管理する型

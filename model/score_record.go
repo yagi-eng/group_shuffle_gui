@@ -1,8 +1,6 @@
 package model
 
-import (
-	slice "local.packages/pkg/util/slice"
-)
+import "github.com/yagi_eng/group_shuffle_gui/util/slice"
 
 // ScoreRecord スコアと同席回数を管理する型
 type ScoreRecord struct {
