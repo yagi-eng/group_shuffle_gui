@@ -4,7 +4,7 @@
 - 交流会などで、複数回参加者をシャッフルしてグループ分けする
 - なるべく重複しないようにする
 
-URL: https://group-shuffle-app.herokuapp.com/
+URL: https://group-shuffle-gui.onrender.com/
 
 # おおまかな流れ
 
